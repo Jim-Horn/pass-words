@@ -31,9 +31,9 @@ const Base = () => {
         { val: '3', txt: 'None' },
     ];
 
-    const buildOptions = (len = 5) => {
+    const buildOptions = (finish = 5, start = 1) => {
         let options = [];
-        for (let i = 1; i < len + 1; i++) {
+        for (let i = start; i < finish + 1; i++) {
             options.push({ val: i, txt: i });
         }
         return options;
@@ -55,6 +55,15 @@ const Base = () => {
         return seps;
     };
 
+    const buildPassword = (arrWords = [], arrSeps = []) => {
+        let result = [];
+        for (let word in arrWords) {
+            result.push(arrWords[word]);
+            result.push(arrSeps.pop());
+        }
+        return result.join('');
+    };
+
     return (
         <section className="pass-words">
             <h1>Pass&#128274;Words</h1>
@@ -71,7 +80,7 @@ const Base = () => {
             </select>{' '}
             {JSON.stringify(separators, null, 4)} <br />
             <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
-                {buildOptions().map(option => (
+                {buildOptions(5, 2).map(option => (
                     <option key={option.val} value={option.val}>
                         {option.txt}
                     </option>
@@ -88,12 +97,13 @@ const Base = () => {
                 ))}
             </select>{' '}
             {JSON.stringify(passwordsLength, null, 4)} <br />
+            {JSON.stringify(buildPassword(getWords(wordLength), getSeparators(wordLength-1)), null, 4)} <br />
         </section>
     );
 };
 
 const getRandom = function(limit) {
-    return parseInt(Math.random() * limit);
+    return parseInt(Math.random() * limit, 10);
 };
 
 export default Base;
