@@ -4,7 +4,8 @@ import data from './data';
 
 const Base = () => {
     const [selectedSep, setSelectedSep] = useState('0');
-    // const [separators, setSeparators] = useState(null);
+    const [wordLength, setWordLength] = useState('2');
+    const [passwordsLength, setPasswordLengths] = useState('5');
 
     const buildSeparators = sep => {
         console.log('sep: ', sep);
@@ -21,7 +22,7 @@ const Base = () => {
         }
     };
 
-    let separators = buildSeparators((selectedSep));
+    let separators = buildSeparators(selectedSep);
 
     const sepOptions = [
         { val: '0', txt: 'Numbers, punctuation & symbols' },
@@ -29,6 +30,14 @@ const Base = () => {
         { val: '2', txt: 'Punctuation & symbols only' },
         { val: '3', txt: 'None' },
     ];
+
+    const buildOptions = (len = 5) => {
+        let options = [];
+        for (let i = 1; i < len + 1; i++) {
+            options.push({ val: i, txt: i });
+        }
+        return options;
+    };
 
     return (
         <section className="pass-words">
@@ -43,9 +52,24 @@ const Base = () => {
                         {el.txt}
                     </option>
                 ))}
-            </select>
-            <br />
-            {JSON.stringify(separators, null, 4)}
+            </select>{' '}
+            {JSON.stringify(separators, null, 4)} <br />
+            <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
+                {buildOptions().map(option => (
+                    <option key={option.val} value={option.val}>
+                        {option.txt}
+                    </option>
+                ))}
+            </select>{' '}
+            {JSON.stringify(wordLength, null, 4)} <br />
+            <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
+                {buildOptions(20).map(option => (
+                    <option key={option.val} value={option.val}>
+                        {option.txt}
+                    </option>
+                ))}
+            </select>{' '}
+            {JSON.stringify(passwordsLength, null, 4)} <br />
         </section>
     );
 };
