@@ -39,6 +39,22 @@ const Base = () => {
         return options;
     };
 
+    let getWords = (len = 5) => {
+        let words = [];
+        while (len--) {
+            words.push(data.words[getRandom(data.words.length)]);
+        }
+        return words;
+    };
+
+    let getSeparators = (len = 5) => {
+        let seps = [];
+        while (len--) {
+            seps.push(separators[getRandom(separators.length)]);
+        }
+        return seps;
+    };
+
     return (
         <section className="pass-words">
             <h1>Pass&#128274;Words</h1>
@@ -62,6 +78,8 @@ const Base = () => {
                 ))}
             </select>{' '}
             {JSON.stringify(wordLength, null, 4)} <br />
+            {JSON.stringify(getWords(wordLength), null, 4)} <br />
+            {JSON.stringify(getSeparators(wordLength), null, 4)} <br />
             <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
                 {buildOptions(20).map(option => (
                     <option key={option.val} value={option.val}>
