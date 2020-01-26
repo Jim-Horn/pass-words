@@ -86,9 +86,16 @@ const Base = () => {
         return temp;
     };
 
+    const doCalculations = function() {
+        const wordsCalc = Math.pow(data.words.length, wordLength);
+        const sepCalc = Math.pow(separators.length, wordLength - 1);
+        return (wordsCalc * sepCalc).toLocaleString();
+    };
+
     return (
         <section className="pass-words">
             <h1>Pass&#128274;Words</h1>
+            <h2>{doCalculations()} possible combinations</h2>
             <label>
                 Separators{' '}
                 <select

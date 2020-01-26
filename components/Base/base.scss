@@ -1,5 +1,16 @@
 .pass-words {
-    h1 {
-        color: orangered;
+    .results {
+        outline: 1px dashed green;
+        padding: 1rem;
+        font-family: monospace;
+        font-size: xx-large;
+        .password {
+            .word {
+                color: green;
+            }
+            .sep {
+                color: orangered;
+            }
+        }
     }
 }
