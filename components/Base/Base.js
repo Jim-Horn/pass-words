@@ -5,11 +5,9 @@ import data from './data';
 const Base = () => {
     const [selectedSep, setSelectedSep] = useState('0');
     const [wordLength, setWordLength] = useState('2');
-    const [passwordsLength, setPasswordLengths] = useState('5');
+    const [passwordsLength, setPasswordLengths] = useState('1');
 
     const buildSeparators = sep => {
-        console.log('sep: ', sep);
-
         switch (sep) {
             case '0':
                 return [...data.numbers, ...data.other];
@@ -55,49 +53,79 @@ const Base = () => {
         return seps;
     };
 
-    const buildPassword = (arrWords = [], arrSeps = []) => {
+    const buildPassword = () => {
+        let wordsArray = getWords(wordLength).reverse();
+        let separatorsArray = getSeparators(wordLength - 1).reverse();
         let result = [];
-        for (let word in arrWords) {
-            result.push(arrWords[word]);
-            result.push(arrSeps.pop());
+        let key = 0;
+        while (wordsArray.length) {
+            key++;
+            result.push(
+                <span className="word" key={`word-${key}`}>
+                    {wordsArray.pop()}
+                </span>
+            );
+            result.push(
+                <span className="sep" key={`sep-${key}`}>
+                    {separatorsArray.pop()}
+                </span>
+            );
         }
-        return result.join('');
+        return result;
+    };
+
+    let passwordArray = () => {
+        let temp = [];
+        for (let i = 0; i < passwordsLength; i++) {
+            temp.push(
+                <div key={i} className="password">
+                    {buildPassword()}
+                </div>
+            );
+        }
+        return temp;
     };
 
     return (
         <section className="pass-words">
             <h1>Pass&#128274;Words</h1>
-            <select
-                name="separators"
-                id="separators"
-                onChange={ev => setSelectedSep(ev.target.value)}
-                defaultValue={selectedSep}>
-                {sepOptions.map((el, idx) => (
-                    <option key={idx} value={el.val}>
-                        {el.txt}
-                    </option>
-                ))}
-            </select>{' '}
-            {JSON.stringify(separators, null, 4)} <br />
-            <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
-                {buildOptions(5, 2).map(option => (
-                    <option key={option.val} value={option.val}>
-                        {option.txt}
-                    </option>
-                ))}
-            </select>{' '}
-            {JSON.stringify(wordLength, null, 4)} <br />
-            {JSON.stringify(getWords(wordLength), null, 4)} <br />
-            {JSON.stringify(getSeparators(wordLength), null, 4)} <br />
-            <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
-                {buildOptions(20).map(option => (
-                    <option key={option.val} value={option.val}>
-                        {option.txt}
-                    </option>
-                ))}
-            </select>{' '}
-            {JSON.stringify(passwordsLength, null, 4)} <br />
-            {JSON.stringify(buildPassword(getWords(wordLength), getSeparators(wordLength-1)), null, 4)} <br />
+            <label>
+                Separators{' '}
+                <select
+                    name="separators"
+                    id="separators"
+                    onChange={ev => setSelectedSep(ev.target.value)}
+                    defaultValue={selectedSep}>
+                    {sepOptions.map((el, idx) => (
+                        <option key={idx} value={el.val}>
+                            {el.txt}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <br />
+            <label>
+                Words per password{' '}
+                <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
+                    {buildOptions(5, 2).map(option => (
+                        <option key={option.val} value={option.val}>
+                            {option.txt}
+                        </option>
+                    ))}
+                </select>
+            </label>{' '}
+            <br />
+            <label>
+                Number of passwords{' '}
+                <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
+                    {buildOptions(20).map(option => (
+                        <option key={option.val} value={option.val}>
+                            {option.txt}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <section className="results">{passwordArray()}</section>
         </section>
     );
 };
