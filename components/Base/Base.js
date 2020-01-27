@@ -93,46 +93,66 @@ const Base = () => {
     };
 
     return (
-        <section className="pass-words">
-            <h1>Pass&#128274;Words</h1>
-            <h2>{doCalculations()} possible combinations</h2>
-            <label>
-                Separators{' '}
-                <select
-                    name="separators"
-                    id="separators"
-                    onChange={ev => setSelectedSep(ev.target.value)}
-                    defaultValue={selectedSep}>
-                    {sepOptions.map((el, idx) => (
-                        <option key={idx} value={el.val}>
-                            {el.txt}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <br />
-            <label>
-                Words per password{' '}
-                <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
-                    {buildOptions(5, 2).map(option => (
-                        <option key={option.val} value={option.val}>
-                            {option.txt}
-                        </option>
-                    ))}
-                </select>
-            </label>{' '}
-            <br />
-            <label>
-                Number of passwords{' '}
-                <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
-                    {buildOptions(20).map(option => (
-                        <option key={option.val} value={option.val}>
-                            {option.txt}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <section className="results">{passwordArray()}</section>
+        <section className="pass-words container">
+            <div className="row">
+                <div className="col-sm">
+                    <h1>Pass&#128274;Words</h1>
+                    <p>{doCalculations()} possible combinations</p>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-sm">
+                    <label>
+                        Words per password
+                        <br />
+                        <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
+                            {buildOptions(5, 2).map(option => (
+                                <option key={option.val} value={option.val}>
+                                    {option.txt}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+
+                <div className="col-sm">
+                    <label>
+                        Separators
+                        <br />
+                        <select
+                            name="separators"
+                            id="separators"
+                            onChange={ev => setSelectedSep(ev.target.value)}
+                            defaultValue={selectedSep}>
+                            {sepOptions.map((el, idx) => (
+                                <option key={idx} value={el.val}>
+                                    {el.txt}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+
+                <div className="col-sm">
+                    <label>
+                        Number of passwords
+                        <br />
+                        <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
+                            {buildOptions(20).map(option => (
+                                <option key={option.val} value={option.val}>
+                                    {option.txt}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm">
+                    <section className="results">{passwordArray()}</section>
+                </div>
+            </div>
         </section>
     );
 };
