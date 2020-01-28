@@ -1,10 +1,18 @@
 .pass-words {
+    .container {
+        overflow-x: scroll;
+    }
+    .fields{
+        margin-bottom: 1rem;
+    }
+    .possibilities{font-style: italic;font-size: smaller}
     .results {
         outline: 1px dashed green;
         padding: 1rem;
         font-family: monospace;
         font-size: xx-large;
         columns: 4 350px;
+        margin-bottom: 1rem;
         .password {
             .word {
                 color: green;
@@ -13,5 +21,10 @@
                 color: orangered;
             }
         }
+    }
+    .copy {
+        text-align: center;
+        font-size: small;
+        margin-bottom: 1rem;
     }
 }

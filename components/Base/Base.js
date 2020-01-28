@@ -97,11 +97,11 @@ const Base = () => {
             <div className="row">
                 <div className="col-sm">
                     <h1>Pass&#128274;Words</h1>
-                    <p>{doCalculations()} possible combinations</p>
+                    <p>Generate passwords that are secure, yet easy to remember using three-letter words.</p>
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row fields">
                 <div className="col-sm">
                     <label>
                         Words per password
@@ -150,8 +150,12 @@ const Base = () => {
             </div>
             <div className="row">
                 <div className="col-sm">
+                    <p className="possibilities">With the selected options, there are {doCalculations()} possible combinations</p>
                     <section className="results">{passwordArray()}</section>
                 </div>
+            </div>
+            <div className="row">
+                <div className="col-sm copy">JHo - 2020</div>
             </div>
         </section>
     );
