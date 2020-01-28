@@ -4,8 +4,8 @@ import data from './data';
 
 const Base = () => {
     const [selectedSep, setSelectedSep] = useState('0');
-    const [wordLength, setWordLength] = useState('2');
-    const [passwordsLength, setPasswordLengths] = useState('1');
+    const [wordLength, setWordLength] = useState('3');
+    const [passwordsLength, setPasswordLengths] = useState('6');
 
     const buildSeparators = sep => {
         switch (sep) {
