@@ -93,13 +93,13 @@ const Base = () => {
     };
 
     return (
-        <section className="pass-words container">
-            <div className="row">
+        <main className="pass-words container">
+            <header className="row">
                 <div className="col-sm">
                     <h1>Pass&#128274;Words</h1>
                     <p>Generate passwords that are secure, yet easy to remember using three-letter words.</p>
                 </div>
-            </div>
+            </header>
 
             <div className="row fields">
                 <div className="col-sm">
@@ -154,10 +154,10 @@ const Base = () => {
                     <section className="results">{passwordArray()}</section>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-sm copy">JHo - 2020</div>
-            </div>
-        </section>
+            <footer className="row">
+                <div className="col-sm copy"><abbrev title="Jim Horn">JHo</abbrev> - 2020</div>
+            </footer>
+        </main>
     );
 };
 
