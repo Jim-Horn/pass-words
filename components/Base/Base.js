@@ -37,31 +37,14 @@ const Base = () => {
         return options;
     };
 
-    let getWords = (len = 5) => {
-        let words = [];
-        while (len--) {
-            words.push(data.words[getRandom(data.words.length)]);
-        }
-        return words;
-    };
-
-    let getSeparators = (len = 5) => {
-        let seps = [];
-        while (len--) {
-            seps.push(separators[getRandom(separators.length)]);
-        }
-        return seps;
-    };
-
     const buildPassword = () => {
-        let wordsArray = getWords(wordLength).reverse();
-        let separatorsArray = getSeparators(wordLength - 1).reverse();
+        let wordsArray = getRandomArray(data.words, wordLength);
+        let separatorsArray = getRandomArray(separators, wordLength - 1);
         let result = [];
         let key = 0;
         while (wordsArray.length) {
-            key++;
             result.push(
-                <span className="word" key={`word-${key}`}>
+                <span className="word" key={`word-${++key}`}>
                     {wordsArray.pop()}
                 </span>
             );
@@ -72,6 +55,18 @@ const Base = () => {
             );
         }
         return result;
+
+        function getRandomArray(arr, len) {
+            let result = [];
+            while (len--) {
+                result.push(arr[getRandom(arr.length)]);
+            }
+            return result.reverse();
+
+            function getRandom(limit) {
+                return parseInt(Math.random() * limit, 10);
+            }
+        }
     };
 
     let passwordArray = () => {
@@ -150,19 +145,19 @@ const Base = () => {
             </div>
             <div className="row">
                 <div className="col-sm">
-                    <p className="possibilities">With the selected options, there are {doCalculations()} possible combinations</p>
-                    <section className="results">{passwordArray()}</section>
+                    <p className="possibilities">
+                        With the selected options, there are {doCalculations()} possible combinations
+                    </p>
+                    <section className="results" >{passwordArray()}</section>
                 </div>
             </div>
             <footer className="row">
-                <div className="col-sm copy"><abbrev title="Jim Horn">JHo</abbrev> - 2020</div>
+                <div className="col-sm copy">
+                    <abbr title="Jim Horn">JHo</abbr> - 2020
+                </div>
             </footer>
         </main>
     );
-};
-
-const getRandom = function(limit) {
-    return parseInt(Math.random() * limit, 10);
 };
 
 export default Base;
