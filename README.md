@@ -1,21 +1,25 @@
-# Parcel prototyping demo
+# Password Generator
 
-This project is an empty scaffolding demo for prototyping JavaScript-heavy web interfaces with the [Parcel](https://parceljs.org) bundler. It requires you to have [Node and npm](https://nodejs.org) installed.
+Clone this repo.
 
-To use this project, clone it from GitHub and install dependencies:
-
-Optionally install your favorite JavaScript UI framework:
+Install dependencies:
 
 ```
-npm install react react-dom --save
+yarn
 ```
 
-Write JavaScript app code in `index.js`, which is already linked in `index.html`. You can import packages and write ES6 code in `index.js`, and Parcel will bundle it for you.
-
-To run Parcel:
+Run the project in development mode:
 
 ```
-npm start
+yarn start
+```
+You can then open the web app in a browser: http://localhost:1234 - it will refresh automatically as you save edits
+
+
+Build for deployment:
+
+```
+yarn build
 ```
 
-You can then open the web app in a browser: http://localhost:1234
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4714a215-5f86-4f32-84a3-aedb4f61a170/deploy-status)](https://app.netlify.com/sites/pass-words/deploys)
