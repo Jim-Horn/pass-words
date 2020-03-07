@@ -9,8 +9,8 @@
         }
     },
     "scripts": {
-        "start": "parcel index.html",
-        "build": "parcel build index.html",
+        "start": "rimraf dist && parcel index.html",
+        "build": "rimraf dist && parcel build index.html",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -25,6 +25,7 @@
     },
     "devDependencies": {
         "husky": "3.1.0",
+        "rimraf": "^3.0.2",
         "sass": "1.24.0"
     }
 }
