@@ -147,7 +147,7 @@ const Base = () => {
                 </div>
 
                 <div className="col-sm">
-                    <button onClick={forceUpdate}>Refresh</button>
+                    <button className="btn-sm btn-outline-success" onClick={forceUpdate}>Refresh</button>
                 </div>
             </div>
             <div className="row">
