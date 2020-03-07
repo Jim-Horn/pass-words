@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './base.scss';
 import data from './data';
 
@@ -6,6 +6,9 @@ const Base = () => {
     const [selectedSep, setSelectedSep] = useState('0');
     const [wordLength, setWordLength] = useState('3');
     const [passwordsLength, setPasswordLengths] = useState('6');
+
+    const [, updateState] = React.useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
 
     const buildSeparators = sep => {
         switch (sep) {
@@ -142,13 +145,17 @@ const Base = () => {
                         </select>
                     </label>
                 </div>
+
+                <div className="col-sm">
+                    <button onClick={forceUpdate}>Refresh</button>
+                </div>
             </div>
             <div className="row">
                 <div className="col-sm">
                     <p className="possibilities">
                         With the selected options, there are {doCalculations()} possible combinations
                     </p>
-                    <section className="results" >{passwordArray()}</section>
+                    <section className="results">{passwordArray()}</section>
                 </div>
             </div>
             <footer className="row">
