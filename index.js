@@ -1,9 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import WordPasswords from './components/WordPasswords';
 import './styles.scss';
-import Base from './components/Base';
 
-const MainView = () => {
-    return <Base />;
-};
-render(<MainView />, document.getElementById('base-component'));
+const container = document.getElementById('word-passwords-here');
+const root = createRoot(container); 
+root.render(<WordPasswords />);

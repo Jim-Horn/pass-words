@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import './base.scss';
+import './word-passwords.scss';
 import data from './data';
 
-const Base = () => {
+const WordPasswords = () => {
     const [selectedSep, setSelectedSep] = useState('0');
     const [wordLength, setWordLength] = useState('2');
     const [passwordsLength, setPasswordLengths] = useState('6');
@@ -167,4 +167,4 @@ const Base = () => {
     );
 };
 
-export default Base;
+export default WordPasswords;
