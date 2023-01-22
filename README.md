@@ -1,6 +1,8 @@
 # Password Generator
 
-Clone this repo.
+A simple React application to generate passwords based on 3-letter words joined with various separators.
+
+View at https://pass-words.netlify.app/
 
 Install dependencies:
 
