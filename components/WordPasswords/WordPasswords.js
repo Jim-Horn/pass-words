@@ -160,7 +160,7 @@ const WordPasswords = () => {
             </div>
             <footer className="row">
                 <div className="col-sm copy">
-                    <abbr title="Jim Horn">JHo</abbr> - 2020
+                    <abbr title="Jim Horn">JHo</abbr> :: 2020 - {new Date().getFullYear()}
                 </div>
             </footer>
         </main>
