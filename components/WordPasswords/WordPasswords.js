@@ -1,17 +1,27 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import './word-passwords.scss';
 import data from './data';
+
+function getRandom(limit) {
+    return parseInt(Math.random() * limit, 10);
+}
+
+function getRandomArray(arr, len) {
+    let result = [];
+    while (len--) {
+        result.push(arr[getRandom(arr.length)]);
+    }
+    return result.reverse();
+}
 
 const WordPasswords = () => {
     const [selectedSep, setSelectedSep] = useState('0');
     const [wordLength, setWordLength] = useState('2');
     const [passwordsLength, setPasswordLengths] = useState('6');
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-    const [, updateState] = React.useState();
-    const forceUpdate = useCallback(() => updateState({}), []);
-
-    const buildSeparators = sep => {
-        switch (sep) {
+    const separators = useMemo(() => {
+        switch (selectedSep) {
             case '0':
                 return [...data.numbers, ...data.other];
             case '1':
@@ -21,9 +31,11 @@ const WordPasswords = () => {
             default:
                 return [''];
         }
-    };
+    }, [selectedSep]);
 
-    let separators = buildSeparators(selectedSep);
+    const refreshPasswords = () => {
+        setRefreshTrigger((current) => current + 1);
+    };
 
     const sepOptions = [
         { val: '0', txt: 'Numbers, punctuation & symbols' },
@@ -58,36 +70,35 @@ const WordPasswords = () => {
             );
         }
         return result;
-
-        function getRandomArray(arr, len) {
-            let result = [];
-            while (len--) {
-                result.push(arr[getRandom(arr.length)]);
-            }
-            return result.reverse();
-
-            function getRandom(limit) {
-                return parseInt(Math.random() * limit, 10);
-            }
-        }
     };
 
-    let passwordArray = () => {
+    const passwordArray = useMemo(() => {
         let temp = [];
         for (let i = 0; i < passwordsLength; i++) {
             temp.push(
-                <div key={i} className="password">
+                <div key={i} className="password" onClick={(ev) => copyToClipboard(ev.currentTarget.innerText)}>
                     {buildPassword()}
                 </div>
             );
         }
         return temp;
-    };
+    }, [passwordsLength, separators, wordLength, refreshTrigger]);
 
-    const doCalculations = function() {
+    const doCalculations = function () {
         const wordsCalc = Math.pow(data.words.length, wordLength);
         const sepCalc = Math.pow(separators.length, wordLength - 1);
         return (wordsCalc * sepCalc).toLocaleString();
+    };
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard
+            .writeText(text)
+            .then(() => {
+                console.log('Copied to clipboard:', text);
+            })
+            .catch((err) => {
+                console.error('Failed to copy password to clipboard', err);
+            });
     };
 
     return (
@@ -104,8 +115,8 @@ const WordPasswords = () => {
                     <label>
                         Words per password
                         <br />
-                        <select onChange={ev => setWordLength(ev.target.value)} defaultValue={wordLength}>
-                            {buildOptions(5, 2).map(option => (
+                        <select onChange={(ev) => setWordLength(ev.target.value)} defaultValue={wordLength}>
+                            {buildOptions(5, 2).map((option) => (
                                 <option key={option.val} value={option.val}>
                                     {option.txt}
                                 </option>
@@ -121,7 +132,7 @@ const WordPasswords = () => {
                         <select
                             name="separators"
                             id="separators"
-                            onChange={ev => setSelectedSep(ev.target.value)}
+                            onChange={(ev) => setSelectedSep(ev.target.value)}
                             defaultValue={selectedSep}>
                             {sepOptions.map((el, idx) => (
                                 <option key={idx} value={el.val}>
@@ -136,8 +147,8 @@ const WordPasswords = () => {
                     <label>
                         Number of passwords
                         <br />
-                        <select onChange={ev => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
-                            {buildOptions(20).map(option => (
+                        <select onChange={(ev) => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
+                            {buildOptions(20).map((option) => (
                                 <option key={option.val} value={option.val}>
                                     {option.txt}
                                 </option>
@@ -147,15 +158,19 @@ const WordPasswords = () => {
                 </div>
 
                 <div className="col-sm">
-                    <button className="btn-sm btn-outline-success" onClick={forceUpdate}>Refresh</button>
+                    <button className="btn-sm btn-outline-success" onClick={refreshPasswords}>
+                        Refresh
+                    </button>
                 </div>
             </div>
             <div className="row">
                 <div className="col-sm">
                     <p className="possibilities">
-                        With the selected options, there are {doCalculations()} possible combinations
+                        With the selected options, there are {doCalculations()} possible combinations.
+                        <br />
+                        Click a password to copy it to the clipboard.
                     </p>
-                    <section className="results">{passwordArray()}</section>
+                    <section className="results">{passwordArray}</section>
                 </div>
             </div>
             <footer className="row">
