@@ -74,22 +74,18 @@ const WordPasswords = () => {
     };
 
     const passwordArray = useMemo(() => {
-        let temp = [];
-        for (let i = 0; i < passwordsLength; i++) {
-            temp.push(
-                <div
-                    key={i}
-                    className="password"
-                    onClick={(ev) => {
-                        copyToClipboard(ev.currentTarget.innerText);
-                        setIsCopied(true);
-                        setTimeout(() => setIsCopied(false), 1000);
-                    }}>
-                    {buildPassword()}
-                </div>
-            );
-        }
-        return temp;
+        return Array.from({ length: passwordsLength }, (_, i) => (
+            <div
+                key={i}
+                className="password"
+                onClick={(ev) => {
+                    copyToClipboard(ev.currentTarget.innerText);
+                    setIsCopied(true);
+                    setTimeout(() => setIsCopied(false), 1000);
+                }}>
+                {buildPassword()}
+            </div>
+        ));
     }, [passwordsLength, separators, wordLength, refreshTrigger]);
 
     const doCalculations = function () {
