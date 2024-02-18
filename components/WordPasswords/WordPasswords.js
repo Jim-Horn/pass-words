@@ -19,6 +19,7 @@ const WordPasswords = () => {
     const [wordLength, setWordLength] = useState('2');
     const [passwordsLength, setPasswordLengths] = useState('6');
     const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const [isCopied, setIsCopied] = useState(false);
 
     const separators = useMemo(() => {
         switch (selectedSep) {
@@ -73,15 +74,18 @@ const WordPasswords = () => {
     };
 
     const passwordArray = useMemo(() => {
-        let temp = [];
-        for (let i = 0; i < passwordsLength; i++) {
-            temp.push(
-                <div key={i} className="password" onClick={(ev) => copyToClipboard(ev.currentTarget.innerText)}>
-                    {buildPassword()}
-                </div>
-            );
-        }
-        return temp;
+        return Array.from({ length: passwordsLength }, (_, i) => (
+            <div
+                key={i}
+                className="password"
+                onClick={(ev) => {
+                    copyToClipboard(ev.currentTarget.innerText);
+                    setIsCopied(true);
+                    setTimeout(() => setIsCopied(false), 1000);
+                }}>
+                {buildPassword()}
+            </div>
+        ));
     }, [passwordsLength, separators, wordLength, refreshTrigger]);
 
     const doCalculations = function () {
@@ -93,9 +97,7 @@ const WordPasswords = () => {
     const copyToClipboard = (text) => {
         navigator.clipboard
             .writeText(text)
-            .then(() => {
-                console.log('Copied to clipboard:', text);
-            })
+            .then(() => {})
             .catch((err) => {
                 console.error('Failed to copy password to clipboard', err);
             });
@@ -170,7 +172,10 @@ const WordPasswords = () => {
                         <br />
                         Click a password to copy it to the clipboard.
                     </p>
-                    <section className="results">{passwordArray}</section>
+                    <section className="results">
+                        {passwordArray}
+                        {isCopied && <div class="overlay">Copied!</div>}
+                    </section>
                 </div>
             </div>
             <footer className="row">
