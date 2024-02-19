@@ -39,7 +39,7 @@ const WordPasswords = () => {
     };
 
     const sepOptions = [
-        { val: '0', txt: 'Numbers, punctuation & symbols' },
+        { val: '0', txt: 'Numbers, punctuation, & symbols' },
         { val: '1', txt: 'Numbers only' },
         { val: '2', txt: 'Punctuation & symbols only' },
         { val: '3', txt: 'None' },
@@ -80,8 +80,6 @@ const WordPasswords = () => {
                 className="password"
                 onClick={(ev) => {
                     copyToClipboard(ev.currentTarget.innerText);
-                    setIsCopied(true);
-                    setTimeout(() => setIsCopied(false), 1000);
                 }}>
                 {buildPassword()}
             </div>
@@ -97,7 +95,10 @@ const WordPasswords = () => {
     const copyToClipboard = (text) => {
         navigator.clipboard
             .writeText(text)
-            .then(() => {})
+            .then(() => {
+                setIsCopied(true);
+                setTimeout(() => setIsCopied(false), 1000);
+            })
             .catch((err) => {
                 console.error('Failed to copy password to clipboard', err);
             });
@@ -150,7 +151,7 @@ const WordPasswords = () => {
                         Number of passwords
                         <br />
                         <select onChange={(ev) => setPasswordLengths(ev.target.value)} defaultValue={passwordsLength}>
-                            {buildOptions(20).map((option) => (
+                            {buildOptions(25).map((option) => (
                                 <option key={option.val} value={option.val}>
                                     {option.txt}
                                 </option>
