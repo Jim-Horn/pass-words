@@ -173,10 +173,7 @@ const WordPasswords = () => {
                         <br />
                         Click a password to copy it to the clipboard.
                     </p>
-                    <section className="results">
-                        {passwordArray}
-                        {isCopied && <div class="overlay">Copied!</div>}
-                    </section>
+                    <section className="results">{passwordArray}</section>
                 </div>
             </div>
             <footer className="row">
@@ -184,6 +181,7 @@ const WordPasswords = () => {
                     <abbr title="Jim Horn">JHo</abbr> :: 2020 - {new Date().getFullYear()}
                 </div>
             </footer>
+            {isCopied && <div class="overlay">Copied!</div>}
         </main>
     );
 };
