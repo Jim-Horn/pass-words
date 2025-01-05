@@ -21,15 +21,15 @@
         "react-dom": "18.3.1"
     },
     "devDependencies": {
-        "@parcel/config-default": "^2.13.2",
-        "@parcel/transformer-raw": "^2.13.2",
-        "@parcel/transformer-sass": "2.13.2",
+        "@parcel/config-default": "^2.13.3",
+        "@parcel/transformer-raw": "^2.13.3",
+        "@parcel/transformer-sass": "2.13.3",
         "husky": "9.1.7",
-        "parcel": "^2.13.2",
+        "parcel": "^2.13.3",
         "prettier": "^3.4.2",
         "pretty-quick": "4.0.0",
         "process": "^0.11.10",
         "rimraf": "^6.0.1",
-        "sass": "1.82.0"
+        "sass": "1.83.1"
     }
 }
